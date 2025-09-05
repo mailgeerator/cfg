@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GiftCard Elite - Premium Gift Cards</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7E57C2;
+            --primary-dark: #673AB7;
+            --secondary: #FF4081;
+            --accent: #00E5FF;
+            --dark: #121212;
+            --dark-light: #1E1E1E;
+            --light: #FFFFFF;
+            --gray: #B0BEC5;
+            --card-bg: rgba(30, 30, 46, 0.6);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary), var(--accent));
+            --gradient-secondary: linear-gradient(135deg, var(--secondary), var(--primary));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #0C0C14, #1A1A2E);
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(18, 18, 26, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-icon {
+            font-size: 2.2rem;
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--light);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(126, 87, 194, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(126, 87, 194, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -200px;
+            left: -200px;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--light) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--gray);
+        }
+
+        .btn-large {
+            padding: 16px 35px;
+            font-size: 1.1rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .stat {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px 20px;
+            transition: transform 0.3s;
+        }
+
+        .stat:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        /* Gift Cards Section */
+        .section-title {
+            text-align: center;
+            margin: 80px 0 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .brands-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            padding: 10px 25px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 30px;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+        }
+
+        .gift-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .gift-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .gift-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+        }
+
+        .gift-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border-color: rgba(126, 87, 194, 0.3);
+        }
+
+        .gift-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .card-header {
+            padding: 30px 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -50%; }
+            100% { left: 100%; }
+        }
+
+        .card-header i {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+        }
+
+        .amazon { color: #FF9900; }
+        .walmart { color: #0071ce; }
+        .ebay { color: #0064D2; }
+        .xbox { color: #107C10; }
+        .paypal { color: #00457C; }
+        .nintendo { color: #E60012; }
+        .target { color: #CC0000; }
+        .shein { color: #FF2F7F; }
+        .coinmaster { color: #8B5CF6; }
+        .freefire { color: #F59E0B; }
+        .temu { color: #5C0BC0; }
+        .skims { color: #000000; }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .card-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-description {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .card-footer {
+            padding: 20px 25px;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .discount-badge {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .how-it-works::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.03"><circle cx="50" cy="50" r="40" fill="none" stroke="%2300E5FF" stroke-width="2"/><rect x="30" y="30" width="40" height="40" fill="none" stroke="%237E57C2" stroke-width="2"/></svg>');
+            z-index: -1;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .step {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 25px;
+            box-shadow: 0 5px 15px rgba(126, 87, 194, 0.3);
+        }
+
+        .step h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* Verification Process */
+        .verification {
+            padding: 100px 0;
+            background: rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .progress-container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.03"><circle cx="50" cy="50" r="40" fill="none" stroke="%23FF4081" stroke-width="2"/></svg>');
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 1.5s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: progressShine 1.5s infinite;
+        }
+
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Trust Badges */
+        .trust-badges {
+            padding: 80px 0;
+        }
+
+        .badges-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .badge {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .badge:hover {
+            transform: translateY(-5px);
+        }
+
+        .badge i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 0;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .testimonial {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .testimonial:hover {
+            transform: translateY(-5px);
+        }
+
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 5rem;
+            color: rgba(255, 255, 255, 0.05);
+            font-family: serif;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 25px;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(12, 12, 20, 0.95);
+            padding: 80px 0 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--light);
+            transform: translateX(5px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            color: var(--gray);
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: var(--gradient);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal.show {
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--dark-light);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            transform: translateY(50px);
+            transition: transform 0.5s;
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--light);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .gift-cards-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .social-icons {
+                justify-content: center;
+            }
+        }
+
+        /* Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-gift logo-icon"></i>
+                    <span>GiftCardElite</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#gift-cards">Gift Cards</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <button class="btn btn-outline"><i class="fas fa-user"></i> Login</button>
+                    <button class="btn btn-primary"><i class="fas fa-rocket"></i> Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Premium Gift Cards For Less</h1>
+            <p>Discover the best deals on gift cards from your favorite brands. Join thousands of satisfied users who save every day.</p>
+            <button class="btn btn-primary btn-large"><i class="fas fa-gem"></i> Explore Gift Cards</button>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-container">
+                <div class="stat floating">
+                    <div class="stat-number">32,849+</div>
+                    <div class="stat-label">Gift Cards Claimed</div>
+                </div>
+                <div class="stat floating" style="animation-delay: 0.5s;">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Popular Brands</div>
+                </div>
+                <div class="stat floating" style="animation-delay: 1s;">
+                    <div class="stat-number">99%</div>
+                    <div class="stat-label">Satisfied Users</div>
+                </div>
+                <div class="stat floating" style="animation-delay: 1.5s;">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gift Cards Section -->
+    <section id="gift-cards">
+        <div class="container">
+            <div class="section-title">
+                <h2>Premium Gift Cards</h2>
+                <p>Choose from our selection of free and discounted gift cards from top brands</p>
+            </div>
+
+            <div class="brands-filter">
+                <button class="filter-btn active">All Brands</button>
+                <button class="filter-btn">Free Cards</button>
+                <button class="filter-btn">Discounted</button>
+                <button class="filter-btn">Amazon</button>
+                <button class="filter-btn">Gaming</button>
+                <button class="filter-btn">Shopping</button>
+            </div>
+
+            <div class="gift-cards-grid">
+                <!-- Amazon Card -->
+                <div class="gift-card">
+                    <div class="card-header">
+                        <i class="fab fa-amazon amazon"></i>
+                        <h3>Amazon</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-value">$100 Gift Card</div>
+                        <p class="card-description">Use at Amazon.com for millions of products with fast shipping and exclusive deals.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="discount-badge">Free</span>
+                        <button class="btn btn-primary">Claim Now</button>
+                    </div>
+                </div>
+
+                <!-- Walmart Card -->
+                <div class="gift-card">
+                    <div class="card-header">
+                        <i class="fas fa-shopping-cart walmart"></i>
+                        <h3>Walmart</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-value">$50 Gift Card</div>
+                        <p class="card-description">Use in-store or online at Walmart for all your shopping needs at great prices.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="discount-badge">30% Off</span>
+                        <button class="btn btn-primary">Claim Now</button>
+                    </div>
+                </div>
+
+                <!-- Xbox Card -->
+                <div class="gift-card">
+                    <div class="card-header">
+                        <i class="fab fa-xbox xbox"></i>
+                        <h3>Xbox</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-value">$60 Gift Card</div>
+                        <p class="card-description">Buy games, add-ons, subscriptions and more from the Microsoft Store.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="discount-badge">Free</span>
+                        <button class="btn btn-primary">Claim Now</button>
+                    </div>
+                </div>
+
+                <!-- PayPal Card -->
+                <div class="gift-card">
+                    <div class="card-header">
+                        <i class="fab fa-paypal paypal"></i>
+                        <h3>PayPal</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-value">$25 Gift Card</div>
+                        <p class="card-description">Use anywhere PayPal is accepted - online or in-store at millions of retailers.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="discount-badge">15% Off</span>
+                        <button class="btn btn-primary">Claim Now</button>
+                    </div>
+                </div>
+
+                <!-- Nintendo Card -->
+                <div class="gift-card">
+                    <div class="card-header">
+                        <i class="fas fa-gamepad nintendo"></i>
+                        <h3>Nintendo</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-value">$35 Gift Card</div>
+                        <p class="card-description">Redeem on Nintendo eShop for games, DLC, and exclusive content.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="discount-badge">Free</span>
+                        <button class="btn btn-primary">Claim Now</button>
+                    </div>
+                </div>
+
+                <!-- eBay Card -->
+                <div class="gift-card">
+                    <div class="card-header">
+                        <i class="fab fa-ebay ebay"></i>
+                        <h3>eBay</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-value">$40 Gift Card</div>
+                        <p class="card-description">Shop from millions of items on the world's online marketplace with buyer protection.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="discount-badge">20% Off</span>
+                        <button class="btn btn-primary">Claim Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Get your free or discounted gift card in just a few simple steps</p>
+            </div>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Create Account</h3>
+                    <p>Sign up for a free account with your email in less than a minute.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Choose Gift Card</h3>
+                    <p>Select from available gift cards based on your preferences.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Complete Verification</h3>
+                    <p>Complete a quick and simple verification process.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Receive Your Card</h3>
+                    <p>Get your code delivered instantly via email or dashboard.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Verification Process -->
+    <section class="verification">
+        <div class="container">
+            <div class="section-title">
+                <h2>Quick Verification</h2>
+                <p>Complete a simple verification to receive your gift card</p>
+            </div>
+
+            <div class="progress-container">
+                <h3>Verification Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <p>Completing human verification...</p>
+                <button class="btn btn-primary" id="start-verification">Start Verification</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Badges -->
+    <section class="trust-badges">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Trust Us</h2>
+                <p>We're committed to providing legitimate gift cards with excellent service</p>
+            </div>
+
+            <div class="badges-container">
+                <div class="badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Secure & Safe</h3>
+                    <p>All transactions are encrypted and secure with bank-level security</p>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>100% Legitimate</h3>
+                    <p>All gift cards are from official sources with guaranteed validity</p>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-truck-fast"></i>
+                    <h3>Instant Delivery</h3>
+                    <p>Codes delivered immediately after verification to your email</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>User Testimonials</h2>
+                <p>See what our users have to say about their experience</p>
+            </div>
+
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "I was skeptical at first, but I received my $100 Amazon gift card within minutes of completing the verification. The process was smooth and the code worked perfectly!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JD</div>
+                        <div>
+                            <h4>John Doe</h4>
+                            <p>Verified User</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "The process was straightforward, and I got my Xbox code instantly. Used it to buy the new game I wanted. This site is definitely legit and I'll be using it again!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SR</div>
+                        <div>
+                            <h4>Sarah Johnson</h4>
+                            <p>Verified User</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "I've claimed 3 gift cards so far - Amazon, Walmart, and PayPal. All worked perfectly. The verification process is quick and the support team is very helpful."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MJ</div>
+                        <div>
+                            <h4>Michael Roberts</h4>
+                            <p>Verified User</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>GiftCardElite</h3>
+                    <p>Your trusted source for free and discounted gift cards from all your favorite brands.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#gift-cards">Gift Cards</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Report an Issue</a></li>
+                        <li><a href="#">Contact Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to get updates on new gift card offers and promotions</p>
+                    <form>
+                        <input type="email" placeholder="Your email address" style="padding: 12px; width: 100%; margin: 15px 0; border-radius: 30px; border: 1px solid var(--card-border); background: rgba(255, 255, 255, 0.05); color: white;">
+                        <button class="btn btn-primary" style="width: 100%;">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 GiftCardElite. This is a demonstration website. No real gift cards are distributed.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Verification Modal -->
+    <div class="modal" id="verification-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Complete Verification</h2>
+            <p>Please complete the verification to receive your gift card.</p>
+            <div class="progress-bar" style="margin: 30px 0;">
+                <div class="progress" id="modal-progress"></div>
+            </div>
+            <button class="btn btn-primary" id="complete-verification">Complete Verification</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verification progress animation
+            const progressBar = document.getElementById('progress');
+            const startVerificationBtn = document.getElementById('start-verification');
+            const modal = document.getElementById('verification-modal');
+            const closeModal = document.querySelector('.close-modal');
+            const modalProgress = document.getElementById('modal-progress');
+            const completeVerificationBtn = document.getElementById('complete-verification');
+            
+            startVerificationBtn.addEventListener('click', function() {
+                modal.classList.add('show');
+                
+                // Animate progress bar
+                let width = 0;
+                const interval = setInterval(function() {
+                    if (width >= 100) {
+                        clearInterval(interval);
+                    } else {
+                        width += 5;
+                        modalProgress.style.width = width + '%';
+                    }
+                }, 200);
+            });
+            
+            closeModal.addEventListener('click', function() {
+                modal.classList.remove('show');
+            });
+            
+            completeVerificationBtn.addEventListener('click', function() {
+                alert('Verification complete! Your gift card code has been sent to your email.');
+                modal.classList.remove('show');
+            });
+            
+            // Filter buttons
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // In a real implementation, this would filter the gift cards
+                    alert('Filtering by: ' + this.textContent);
+                });
+            });
+            
+            // Claim buttons
+            const claimButtons = document.querySelectorAll('.card-footer .btn');
+            
+            claimButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Show verification modal
+                    modal.classList.add('show');
+                    
+                    // Animate progress bar
+                    let width = 0;
+                    const interval = setInterval(function() {
+                        if (width >= 100) {
+                            clearInterval(interval);
+                        } else {
+                            width += 5;
+                            modalProgress.style.width = width + '%';
+                        }
+                    }, 200);
+                });
+            });
+            
+            // Animate progress bar on scroll
+            window.addEventListener('scroll', function() {
+                const progressSection = document.querySelector('.progress-bar');
+                if (!progressSection) return;
+                
+                const sectionPosition = progressSection.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (sectionPosition < screenPosition) {
+                    let width = 0;
+                    const interval = setInterval(function() {
+                        if (width >= 70) {
+                            clearInterval(interval);
+                        } else {
+                            width += 1;
+                            progressBar.style.width = width + '%';
+                        }
+                    }, 50);
+                }
+            });
+            
+            // Floating animation for stats
+            const stats = document.querySelectorAll('.stat');
+            stats.forEach((stat, index) => {
+                stat.style.animationDelay = `${index * 0.5}s`;
+            });
+        });
+    </script>
+</body>
+</html>
